@@ -26,7 +26,7 @@ socket.on('highScoreSet', ({ totalHighScore }) => {
     totalHighScore = 0;
   }
   localStorage.setItem('totalHighScore', totalHighScore);
-  console.log('totalHighScore 세팅 환료');
+  console.log('totalHighScore 세팅 완료');
 });
 
 const sendEvent = (handlerId, payload) => {

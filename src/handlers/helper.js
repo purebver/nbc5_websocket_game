@@ -4,15 +4,15 @@ import { createStage, getStage, setStage } from '../models/stage.model.js';
 import { getUser, removeUser } from '../models/user.model.js';
 import handlerMappings from './handlerMapping.js';
 
-export const handleDisconnect = (socket, uuid, redisClient) => {
+export const handleDisconnect = async (socket, uuid, redisClient) => {
   removeUser(socket.id, redisClient);
   console.log(`User disconnected: ${socket.id}`);
-  console.log('Current users: ', getUser());
+  console.log('Current users: ', await getUser());
 };
 
-export const handleConnection = (socket, uuid) => {
+export const handleConnection = async (socket, uuid) => {
   console.log(`New user connected!: ${uuid} with socket ID ${socket.id}`);
-  console.log('Current users: ', getUser());
+  console.log('Current users: ', await getUser());
 
   createItem(uuid);
   createStage(uuid);

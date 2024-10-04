@@ -11,6 +11,7 @@ class Score {
   stageChange = false;
   stageIndex = 0;
   leng = stages.data.length - 1;
+  verify = stages.data[this.leng].score + 1300;
   currentStage = 0;
   constructor(ctx, scaleRatio) {
     this.ctx = ctx;
@@ -27,6 +28,7 @@ class Score {
     // 점수가 stages.data[this.stageIndex + 1].score 이상이 될 시 스테이지 변경
     if (this.stageIndex < this.leng) {
       if (this.score >= stages.data[this.stageIndex + 1].score) {
+        console.log(this.verify);
         this.stageChange = true;
         sendEvent(11, {
           currentStage: this.currentStage,
@@ -40,6 +42,14 @@ class Score {
           this.stageChange = false;
         }, 1000);
       }
+    } else if (Math.floor(this.score) === this.verify) {
+      sendEvent(14, {
+        currentStage: this.currentStage,
+        runScore: this.runScore,
+        itemScore: this.itemScore,
+        totalScore: this.score,
+      });
+      this.verify += 1300;
     }
   }
 
@@ -59,6 +69,7 @@ class Score {
     this.runScore = 0;
     this.itemScore = 0;
     this.stageChange = false;
+    this.verify = stages.data[this.leng].score + 1300;
   }
 
   setHighScore() {
@@ -91,8 +102,8 @@ class Score {
     this.ctx.fillStyle = '#525250';
 
     const scoreX = this.canvas.width - 75 * this.scaleRatio;
-    const highScoreX = scoreX - 110 * this.scaleRatio;
-    const totalHighScoreX = highScoreX - 110 * this.scaleRatio;
+    const highScoreX = scoreX - 150 * this.scaleRatio;
+    const totalHighScoreX = highScoreX - 150 * this.scaleRatio;
     const stageX = 10;
 
     const scorePadded = Math.floor(this.score).toString().padStart(6, 0);

@@ -1,10 +1,7 @@
-//유저는 스테이지를 하나씩만 올라갈 수 있다.
-
 import { getGameAssets } from '../init/assets.js';
 import { getStage, setStage } from '../models/stage.model.js';
 
-//유저는 일정 점수가 되면 다음 스테이지로 이동한다.
-export const moveStageHandler = (userId, payload) => {
+export const verifyScore = (userId, payload) => {
   const { stages, items, itemUnlocks } = getGameAssets();
   //currentStage, targetStage
   //유저의 현재 스테이지 정보
@@ -28,13 +25,15 @@ export const moveStageHandler = (userId, payload) => {
   const stageIndex = payload.currentStage - 1000;
   const serverTime = Date.now(); //현재 타임스탬프
   const elapsedTime = (serverTime - currentStage.timestamp) / 1000;
+  //점수검증
+  const maxboundary = 1300;
 
-  const maxboundary = stages.data[payload.targetStage - 1000].score - stages.data[stageIndex].score;
   const mintime =
     maxboundary /
     (items.data[itemUnlocks.data[stageIndex].item_id - 1].score +
       stages.data[stageIndex].scorePerSecond);
-  //서버와 클라이언트간의 통신이 지연(여기선 5)되거나 강제로 점수를 늘릴경우
+
+  //서버와 클라이언트간의 통신이 지연(여기선 9)되거나 강제로 점수를 늘릴경우
   if (elapsedTime < mintime) {
     return { status: 'fail', message: 'Invalid elapsed time' };
   }
@@ -57,14 +56,9 @@ export const moveStageHandler = (userId, payload) => {
     return { status: 'fail', message: 'The itemScore is too high. ' };
   }
 
-  // targetStage 대한 검정 <- 게임에셋에 존재하는 스테이지인가
-  if (!stages.data.some((stages) => stages.id === payload.targetStage)) {
-    return { status: 'fail', message: 'Target stage not found' };
-  }
-
   setStage(
     userId,
-    payload.targetStage,
+    payload.currentStage,
     serverTime,
     payload.runScore,
     payload.itemScore,
