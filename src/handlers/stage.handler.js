@@ -29,12 +29,16 @@ export const moveStageHandler = (userId, payload) => {
   const serverTime = Date.now(); //현재 타임스탬프
   const elapsedTime = (serverTime - currentStage.timestamp) / 1000;
 
+  //스테이지 변경값이자 달리기만 했을경우 달리기 최대치값
   const maxboundary = stages.data[payload.targetStage - 1000].score - stages.data[stageIndex].score;
+
+  //최고점수 아이템 최소시간 생성으로 전부 먹을경우의 최소 시간
   const mintime =
     maxboundary /
     (items.data[itemUnlocks.data[stageIndex].item_id - 1].score +
       stages.data[stageIndex].scorePerSecond);
-  //서버와 클라이언트간의 통신이 지연(여기선 5)되거나 강제로 점수를 늘릴경우
+
+  //최소시간보다 짧은 시간에 점수를 달성 = 강제로 점수를 늘릴경우
   if (elapsedTime < mintime) {
     return { status: 'fail', message: 'Invalid elapsed time' };
   }

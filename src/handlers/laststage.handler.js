@@ -25,15 +25,17 @@ export const verifyScore = (userId, payload) => {
   const stageIndex = payload.currentStage - 1000;
   const serverTime = Date.now(); //현재 타임스탬프
   const elapsedTime = (serverTime - currentStage.timestamp) / 1000;
-  //점수검증
+
+  //달리기만 했을경우 최대치
   const maxboundary = 1300;
 
+  //최소 시간
   const mintime =
     maxboundary /
     (items.data[itemUnlocks.data[stageIndex].item_id - 1].score +
       stages.data[stageIndex].scorePerSecond);
 
-  //서버와 클라이언트간의 통신이 지연(여기선 9)되거나 강제로 점수를 늘릴경우
+  //최소시간보다 짧은 시간에 점수를 달성 = 강제로 점수를 늘릴경우
   if (elapsedTime < mintime) {
     return { status: 'fail', message: 'Invalid elapsed time' };
   }
