@@ -16,6 +16,19 @@ socket.on('connection', (data) => {
   userId = data.uuid;
 });
 
+socket.on('localUUID', ({ uuid }) => {
+  localStorage.setItem('userUUID', uuid);
+  console.log('local에 UUID를 저장하였습니다');
+});
+
+socket.on('highScoreSet', ({ totalHighScore }) => {
+  if (totalHighScore === null) {
+    totalHighScore = 0;
+  }
+  localStorage.setItem('totalHighScore', totalHighScore);
+  console.log('totalHighScore 세팅 환료');
+});
+
 const sendEvent = (handlerId, payload) => {
   socket.emit('event', {
     userId,
@@ -25,4 +38,8 @@ const sendEvent = (handlerId, payload) => {
   });
 };
 
-export { sendEvent };
+const sendUUID = (userUUID) => {
+  socket.emit('connectUser', { uuid: userUUID });
+};
+
+export { sendEvent, sendUUID };

@@ -3,12 +3,12 @@
   "version": "1.0.0",
 
   "data": [
-    { "id": 1000, "score": 0 },
-    { "id": 1001, "score": 100 },
-    { "id": 1002, "score": 300 },
-    { "id": 1003, "score": 700 },
-    { "id": 1004, "score": 1300 },
-    { "id": 1005, "score": 2200 },
-    { "id": 1006, "score": 4000 }
+    { "id": 1000, "score": 0, "scorePerSecond": 10 },
+    { "id": 1001, "score": 100, "scorePerSecond": 20 },
+    { "id": 1002, "score": 250, "scorePerSecond": 30 },
+    { "id": 1003, "score": 500, "scorePerSecond": 40 },
+    { "id": 1004, "score": 850, "scorePerSecond": 50 },
+    { "id": 1005, "score": 1300, "scorePerSecond": 60 },
+    { "id": 1006, "score": 1950, "scorePerSecond": 70 }
   ]
 }

@@ -4,7 +4,11 @@ import CactiController from './CactiController.js';
 import Score from './Score.js';
 import ItemController from './ItemController.js';
 import './Socket.js';
-import { sendEvent } from './Socket.js';
+import { sendEvent, sendUUID } from './Socket.js';
+
+let userUUID = localStorage.getItem('userUUID');
+
+sendUUID(userUUID);
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
@@ -183,6 +187,7 @@ function reset() {
   gameover = false;
   waitingToStart = false;
 
+  itemController.reset();
   ground.reset();
   cactiController.reset();
   score.reset();
@@ -229,7 +234,7 @@ function gameLoop(currentTime) {
     itemController.update(gameSpeed, deltaTime, score.currentStage);
     // 달리기
     player.update(gameSpeed, deltaTime);
-    updateGameSpeed(deltaTime, (score.num + 1) / 10);
+    updateGameSpeed(deltaTime, (score.stageIndex + 1) / 10);
 
     score.update(deltaTime);
   }
@@ -261,7 +266,7 @@ function gameLoop(currentTime) {
 
   //stageChange가 true면
   if (score.stageChange) {
-    showStageInfoText(score.num + 1);
+    showStageInfoText(score.stageIndex + 1);
   }
   requestAnimationFrame(gameLoop);
 }

@@ -1,14 +1,8 @@
 import Item from './Item.js';
-
-let unlockInfo;
-
-async function loadJson() {
-  const item_unlockResponse = await fetch('/assets/item_unlock.json');
-  unlockInfo = await item_unlockResponse.json();
-}
+import unlockInfo from '../assets/item_unlock.json' with { type: 'json' };
 
 class ItemController {
-  INTERVAL_MIN = 0;
+  INTERVAL_MIN = 1000;
   INTERVAL_MAX = 12000;
 
   nextInterval = null;
@@ -22,12 +16,6 @@ class ItemController {
     this.speed = speed;
 
     this.setNextItemTime();
-
-    this.waitunlockItem();
-  }
-
-  async waitunlockItem() {
-    await loadJson();
   }
 
   setNextItemTime() {
