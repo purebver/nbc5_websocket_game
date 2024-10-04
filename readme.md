@@ -102,7 +102,7 @@
 
 - user.model.js와 regiser.handler.js 참조
 
-8. 게임 종료(오버) 시 최종점수를 highscore와 비교해 totalhighscore를 넘어서면 브로드캐스트 및 레디스에 값 바꾸기
+8. 게임 종료(오버) 시 최종점수를 highscore와 비교해 totalhighscore를 넘어서면 브로드캐스트로 모든 유저 console.log발송 및 레디스에 값 바꾸기
 
 - score.js의 setHighScore()참조
 
