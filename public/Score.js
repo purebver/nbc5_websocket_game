@@ -11,7 +11,8 @@ class Score {
   stageChange = false;
   stageIndex = 0;
   leng = stages.data.length - 1;
-  verify = stages.data[this.leng].score + 1300;
+  addVerify = 1300;
+  verify = stages.data[this.leng].score + this.addVerify;
   currentStage = 0;
   constructor(ctx, scaleRatio) {
     this.ctx = ctx;
@@ -23,10 +24,13 @@ class Score {
   //각 스테이지마다 초당 점수 10 * 스테이지
   update(deltaTime) {
     this.currentStage = stages.data[this.stageIndex].id;
+    //기본 점수 획득값 0.001은 1초당
     this.runScore += deltaTime * 0.001 * stages.data[this.stageIndex].scorePerSecond;
+    //아이템 + 기본점수 합
     this.score = this.runScore + this.itemScore;
-    // 점수가 stages.data[this.stageIndex + 1].score 이상이 될 시 스테이지 변경
+    //최종스테이지면 다음 스테이지가 없으므로 pass
     if (this.stageIndex < this.leng) {
+      //점수가 stages.data[this.stageIndex + 1].score 이상이 될 시 스테이지 변경
       if (this.score >= stages.data[this.stageIndex + 1].score) {
         this.stageChange = true;
         sendEvent(11, {
@@ -49,7 +53,8 @@ class Score {
         itemScore: this.itemScore,
         totalScore: this.score,
       });
-      this.verify += 1300;
+      //다음 검증
+      this.verify += this.addVerify;
     }
   }
 
@@ -70,7 +75,7 @@ class Score {
     this.runScore = 0;
     this.itemScore = 0;
     this.stageChange = false;
-    this.verify = stages.data[this.leng].score + 1300;
+    this.verify = stages.data[this.leng].score + this.addVerify;
   }
 
   //하이스코어 세팅
