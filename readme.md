@@ -110,10 +110,14 @@
 
 - highscore.handler.js 참조
 
+9. 게임 종료(오버) 시 점수에 대한 마지막 검증
+
+- game.handle.js의 gameEnd 참조
+
 ---
 
 ### 3. 주의사항
 
 1. 최종 스테이지 도달 이후 1300점이라는 임의 상수마다 검증작업 하는 것으로 지정되어있음
 
-- Score.js의 verify 변수, laststage.handler.js의 maxboundary 변수
+- Score.js의 verify 변수
