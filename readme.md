@@ -102,7 +102,7 @@
 
 - user.model.js와 regiser.handler.js 참조
 
-8. 게임 종료(오버) 시 최종점수를 highscore와 비교해 totalhighscore를 넘어서면 브로드캐스트 및 레디스에 값 바꾸기
+8. 게임 종료(오버) 시 최종점수를 highscore와 비교해 totalhighscore를 넘어서면 브로드캐스트로 모든 유저 console.log발송 및 레디스에 값 바꾸기
 
 - score.js의 setHighScore()참조
 
@@ -110,8 +110,10 @@
 
 - highscore.handler.js 참조
 
+---
+
 ### 3. 주의사항
 
-1. 최종 스테이지 도달 이후 1300점이라는 임의 상수로 지정되어있음
+1. 최종 스테이지 도달 이후 1300점이라는 임의 상수마다 검증작업 하는 것으로 지정되어있음
 
 - Score.js의 verify 변수, laststage.handler.js의 maxboundary 변수
