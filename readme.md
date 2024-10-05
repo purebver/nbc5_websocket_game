@@ -121,3 +121,11 @@
 1. 최종 스테이지 도달 이후 1300점이라는 임의 상수마다 검증작업 하는 것으로 지정되어있음
 
 - Score.js의 verify 변수
+
+---
+
+### 4. TEST 캡쳐
+
+![image](https://github.com/user-attachments/assets/51e764c7-9aaa-4867-beef-c367d28c9971)
+
+![image](https://github.com/user-attachments/assets/777fc689-fecb-4117-bbaa-d9dff256dbce)
