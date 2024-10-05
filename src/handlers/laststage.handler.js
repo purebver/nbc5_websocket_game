@@ -29,11 +29,12 @@ export const verifyScore = (userId, payload) => {
   //달리기만 했을경우 최대치
   const maxboundary = elapsedTime * stages.data[stageIndex].scorePerSecond;
 
-  //최소 시간
-  const mintime =
+  //최소 시간에 내림값으로 약간의 여유를 줌
+  const mintime = Math.floor(
     maxboundary /
-    (items.data[itemUnlocks.data[stageIndex].item_id - 1].score +
-      stages.data[stageIndex].scorePerSecond);
+      (items.data[itemUnlocks.data[stageIndex].item_id - 1].score +
+        stages.data[stageIndex].scorePerSecond),
+  );
 
   //최소시간보다 짧은 시간에 점수를 달성 = 강제로 점수를 늘릴경우
   if (elapsedTime < mintime) {

@@ -33,10 +33,12 @@ export const moveStageHandler = (userId, payload) => {
   const maxboundary = stages.data[payload.targetStage - 1000].score - stages.data[stageIndex].score;
 
   //최고점수 아이템 최소시간 생성으로 전부 먹을경우의 최소 시간
-  const mintime =
+  //내림으로 약간의 여유를 줌
+  const mintime = Math.floor(
     maxboundary /
-    (items.data[itemUnlocks.data[stageIndex].item_id - 1].score +
-      stages.data[stageIndex].scorePerSecond);
+      (items.data[itemUnlocks.data[stageIndex].item_id - 1].score +
+        stages.data[stageIndex].scorePerSecond),
+  );
 
   //최소시간보다 짧은 시간에 점수를 달성 = 강제로 점수를 늘릴경우
   if (elapsedTime < mintime) {
