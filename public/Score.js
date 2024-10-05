@@ -1,9 +1,9 @@
 import { sendEvent } from './Socket.js';
 import items from '../assets/item.json' with { type: 'json' };
-import unlockInfo from '../assets/item_unlock.json' with { type: 'json' };
 import stages from '../assets/stage.json' with { type: 'json' };
 
 class Score {
+  //각 필요한 변수들
   score = 0;
   runScore = 0;
   itemScore = 0;
@@ -28,7 +28,6 @@ class Score {
     // 점수가 stages.data[this.stageIndex + 1].score 이상이 될 시 스테이지 변경
     if (this.stageIndex < this.leng) {
       if (this.score >= stages.data[this.stageIndex + 1].score) {
-        console.log(this.verify);
         this.stageChange = true;
         sendEvent(11, {
           currentStage: this.currentStage,
@@ -42,7 +41,8 @@ class Score {
           this.stageChange = false;
         }, 1000);
       }
-    } else if (Math.floor(this.score) === this.verify) {
+      //최종 스테이지 도달 후 일정 점수마다 검증작업
+    } else if (Math.floor(this.score) >= this.verify) {
       sendEvent(14, {
         currentStage: this.currentStage,
         runScore: this.runScore,
@@ -63,6 +63,7 @@ class Score {
     });
   }
 
+  //reset이 발동될 경우 초기화될 변수들
   reset() {
     this.score = 0;
     this.stageIndex = 0;
@@ -72,6 +73,7 @@ class Score {
     this.verify = stages.data[this.leng].score + 1300;
   }
 
+  //하이스코어 세팅
   setHighScore() {
     const highScore = Number(localStorage.getItem(this.HIGH_SCORE_KEY));
     const totalHighScore = Number(localStorage.getItem('totalHighScore'));
@@ -89,6 +91,7 @@ class Score {
     return this.score;
   }
 
+  //화면에 stage, T-HI(total-highscore), U-HI(user-hignscore), 현 점수 그리기
   draw() {
     const nowStage = this.stageIndex + 1;
     const y = 20 * this.scaleRatio;
