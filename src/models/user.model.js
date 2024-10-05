@@ -3,7 +3,7 @@ import redisClient from '../redisClient.js';
 //유저 추가
 export const addUser = async (user) => {
   try {
-    await redisClient.flushDb();
+    //await redisClient.flushDb();
     await redisClient.set(`user:${user.socketId}`, user.uuid);
     console.log('레디스에 유저 저장 완료');
   } catch (err) {
