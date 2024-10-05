@@ -3,10 +3,12 @@ import { clearItem, setItem } from '../models/item.model.js';
 import { clearStage, getStage, setStage } from '../models/stage.model.js';
 import { verifyScore } from './laststage.handler.js';
 
+//게임 시작
 export const gameStart = (uuid, payload) => {
-  // stages 배열에서 0번째 = 첫번째 스테이지
+  //stages 배열에서 0번째 = 첫번째 스테이지
   const { stages } = getGameAssets();
 
+  //기초 세팅
   clearItem(uuid);
   clearStage(uuid);
   setItem(uuid, 0, payload.timestamp, 0);
@@ -16,15 +18,12 @@ export const gameStart = (uuid, payload) => {
   return { status: 'success' };
 };
 
+//게임 종료(오버)
 export const gameEnd = (uuid, payload) => {
   //클라이언트는 게임종료 타임스탬프와 마지막 점수를 줌
 
-  const { timestamp: gameEndTime, currentStage, runScore, itemScore, totalScore } = payload;
+  const { totalScore } = payload;
   const stages = getStage(uuid);
-
-  if (!stages.length) {
-    return { status: 'fail', message: 'No stages found for user' };
-  }
 
   //모든 점수 검증
   verifyScore(uuid, payload);
