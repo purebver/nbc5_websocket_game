@@ -60,6 +60,7 @@ let scaleRatio = null;
 let previousTime = null;
 let gameSpeed = GAME_SPEED_START;
 let gameover = false;
+let gameoverSend = false;
 let hasAddedEventListenersForRestart = false;
 let waitingToStart = true;
 // 게임 스톱용
@@ -185,6 +186,7 @@ function updateGameSpeed(deltaTime, maxSpeed) {
 function reset() {
   hasAddedEventListenersForRestart = false;
   gameover = false;
+  gameoverSend = false;
   waitingToStart = false;
 
   itemController.reset();
@@ -258,6 +260,16 @@ function gameLoop(currentTime) {
 
   if (gameover) {
     showGameOver();
+    if (!gameoverSend) {
+      sendEvent(3, {
+        currentStage: score.currentStage,
+        timestamp: Date.now(),
+        runScore: score.runScore,
+        itemScore: score.itemScore,
+        totalScore: score.score,
+      });
+      gameoverSend = true;
+    }
   }
 
   if (waitingToStart) {
