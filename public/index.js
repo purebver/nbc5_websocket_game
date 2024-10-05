@@ -212,6 +212,7 @@ function clearScreen() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+//메인 게임
 function gameLoop(currentTime) {
   if (previousTime === null) {
     previousTime = currentTime;
@@ -241,11 +242,14 @@ function gameLoop(currentTime) {
     score.update(deltaTime);
   }
 
+  //게임오버
   if (!gameover && cactiController.collideWith(player)) {
     gameover = true;
     score.setHighScore();
     setupGameReset();
   }
+
+  //아이템 획득
   const collideWithItem = itemController.collideWith(player);
   if (collideWithItem && collideWithItem.itemId) {
     score.getItem(collideWithItem.itemId);
@@ -258,6 +262,7 @@ function gameLoop(currentTime) {
   score.draw();
   itemController.draw();
 
+  //게임 오버 시 발생될 이벤트
   if (gameover) {
     showGameOver();
     if (!gameoverSend) {
@@ -272,14 +277,17 @@ function gameLoop(currentTime) {
     }
   }
 
+  //첫 화면
   if (waitingToStart) {
     showStartGameText();
   }
 
-  //stageChange가 true면
+  //stageChange가 true면 화면에 1초간 띄움
   if (score.stageChange) {
     showStageInfoText(score.stageIndex + 1);
   }
+
+  //루프
   requestAnimationFrame(gameLoop);
 }
 
