@@ -27,7 +27,7 @@ export const verifyScore = (userId, payload) => {
   const elapsedTime = (serverTime - currentStage.timestamp) / 1000;
 
   //달리기만 했을경우 최대치
-  const maxboundary = 1300;
+  const maxboundary = elapsedTime * stages.data[stageIndex].scorePerSecond;
 
   //최소 시간
   const mintime =
