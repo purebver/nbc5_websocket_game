@@ -47,7 +47,7 @@ export const verifyScore = (userId, payload) => {
     return { status: 'fail', message: 'The totalScore is the problem.' };
   }
 
-  //달리기만 했을경우 최대치를 통신지연 생각해서 비교
+  //달리기만 했을경우 최대치를 약간의 여유를 두고 비교
   const nowRunScore = payload.runScore - currentStage.runScore;
   if (nowRunScore > maxboundary + 5) {
     return { status: 'fail', message: 'RunScore is too large.' };
@@ -59,6 +59,7 @@ export const verifyScore = (userId, payload) => {
     return { status: 'fail', message: 'The itemScore is too high. ' };
   }
 
+  //현 스테이지 저장
   setStage(
     userId,
     payload.currentStage,

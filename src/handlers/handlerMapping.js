@@ -4,6 +4,7 @@ import { getItemHandler } from './item.handler.js';
 import { verifyScore } from './laststage.handler.js';
 import { moveStageHandler } from './stage.handler.js';
 
+//각 숫자마다 이벤트 맵핑
 const handlerMappings = {
   2: gameStart,
   3: gameEnd,

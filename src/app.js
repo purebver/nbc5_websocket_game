@@ -4,15 +4,23 @@ import initSocket from './init/socket.js';
 import { loadGameAssets } from './init/assets.js';
 
 const app = express();
+
+//http서버 개설
 const server = createServer(app);
 
 const PORT = 3000;
 
+//json파싱 미들웨어
 app.use(express.json());
+
+//html을 url로 사용할 수 있게하는 미들웨어
 app.use(express.urlencoded({ extended: false }));
+
+//정적 폴더
 app.use(express.static('public'));
 app.use('/assets', express.static('assets'));
 
+//소켓IO 연결을 위해 서버전달
 initSocket(server);
 
 app.get('/', (req, res, next) => {

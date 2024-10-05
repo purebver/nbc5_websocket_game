@@ -40,6 +40,7 @@ export const loadGameAssets = async () => {
   }
 };
 
+//위의 값들 다른곳에서 받아오기
 export const getGameAssets = () => {
   return gameAssets;
 };

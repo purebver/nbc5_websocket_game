@@ -1,5 +1,6 @@
 import redisClient from '../redisClient.js';
 
+//유저 추가
 export const addUser = async (user) => {
   try {
     await redisClient.flushDb();
@@ -10,6 +11,7 @@ export const addUser = async (user) => {
   }
 };
 
+//유저 제거
 export const removeUser = async (socketId) => {
   try {
     await redisClient.del(`user:${socketId}`);
@@ -19,6 +21,7 @@ export const removeUser = async (socketId) => {
   }
 };
 
+//유저 데이터 받아오기
 export const getUser = async () => {
   try {
     const keys = await redisClient.keys(`user:*`);
@@ -30,7 +33,7 @@ export const getUser = async () => {
     );
     return users;
   } catch (err) {
-    console.error('레디스에 유저 삭제중 오류:', err);
+    console.error('레디스에서 유저 받아오기중 오류:', err);
     return [];
   }
 };

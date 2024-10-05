@@ -1,5 +1,6 @@
 import redisClient from '../redisClient.js';
 
+//totalHighScore를 클라이언트의 localstorage에 저장하기 위해 전달
 export const totalHighScoreSet = async (socket) => {
   try {
     console.log('레디스에서 totalHighScore 불러오는중');
@@ -11,6 +12,7 @@ export const totalHighScoreSet = async (socket) => {
   }
 };
 
+//새로운 totalHighScore달성자가 생길경우
 export const newTotalHighScoreSet = async (userId, payload, socket, io) => {
   try {
     console.log('레디스에 새로운 totalHighScore 저장중');

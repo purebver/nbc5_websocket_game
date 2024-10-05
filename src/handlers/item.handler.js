@@ -3,6 +3,7 @@ import { setItem, getItem } from '../models/item.model.js';
 
 export const getItemHandler = (userId, payload) => {
   const { items, itemUnlocks } = getGameAssets();
+  //유저가 현재까지 얻은 아이템 정보
   const getItems = getItem(userId);
   const stageIndex = payload.currentStage - 1000;
   const itemIdIndex = payload.itemId - 1;
@@ -28,6 +29,7 @@ export const getItemHandler = (userId, payload) => {
     return { status: 'fail', message: '획득한 아이템 점수 이상.' };
   }
 
+  //먹은 아이템 저장
   setItem(userId, payload.itemId, serverTime, payload.itemScore);
 
   console.log('item: ', getItem(userId));

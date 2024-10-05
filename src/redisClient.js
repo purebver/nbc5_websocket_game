@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+//레디스 클라이언트
 const redisClient = createClient({
   url: process.env.REDIS_URL,
 });

@@ -1,5 +1,6 @@
 import { CLIENT_VERSION } from './Constants.js';
 
+//연결될 서버의 주소(ec2사용 시 변경)
 const socket = io('http://localhost:3000', {
   query: {
     clientVersion: CLIENT_VERSION,
@@ -7,6 +8,8 @@ const socket = io('http://localhost:3000', {
 });
 
 let userId = null;
+
+//각 이벤트 별 받아오기 (on)
 socket.on('response', (data) => {
   console.log(data);
 });
@@ -29,6 +32,7 @@ socket.on('highScoreSet', ({ totalHighScore }) => {
   console.log('totalHighScore 세팅 완료');
 });
 
+//이벤트 보내기(emit)
 const sendEvent = (handlerId, payload) => {
   socket.emit('event', {
     userId,
@@ -38,6 +42,7 @@ const sendEvent = (handlerId, payload) => {
   });
 };
 
+//유저 데이터 보내기
 const sendUUID = (userUUID) => {
   socket.emit('connectUser', { uuid: userUUID });
 };
